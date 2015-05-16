@@ -1,3 +1,3 @@
 $(document).ready(function(){
-  //TODO: attach plugin to form
+  $('.login').validateText(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/);
 });
