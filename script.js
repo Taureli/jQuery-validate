@@ -1,5 +1,5 @@
 $(document).ready(function(){
   $('.login').validateText(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/);
   $('.email').validateEmail();
-  $('.postalCode').validatePostalCode();
+  $('.postalCode').validatePostalCode('.city');
 });
