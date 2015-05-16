@@ -1,13 +1,14 @@
 (function($){
 
   $.fn.validateText = function(pattern) {
-    console.log(this);
     $(this).on('keydown keyup keypress', function(e){
-      console.log("KEY");
       if(!$(this).val().match(pattern)){
         $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).css({"border-color": "red",
+                    "border-style": "solid"});
       } else {
         $('input[type="submit"]').removeAttr('disabled');
+        $(this).css({"border-color": ""});
       }
     });
   };
