@@ -117,4 +117,64 @@
     });
   };
 
+  $.fn.validatePasswordStrengthOnly = function() {
+    $(this).on('keydown keyup keypress', function(e){
+      var inpField = $(this); //Needed for future reference
+      var uppercase = new RegExp('[A-ZĄĆĘŁŃÓŚŹŻ]');
+      var lowercase = new RegExp('[a-ząćęłóńśźż]');
+      var numbers = new RegExp('[0-9]');
+      var strText;
+
+      var passwdStrength = 0;
+      var upCount = 0;
+      var lowCount = 0;
+      var numbCount = 0;
+      var specialCount = 0;
+
+      //count each type of symbol
+      for(var i = 0; i < inpField.val().length; i++){
+        if(uppercase.test(inpField.val().charAt(i)))
+          upCount++;
+        else if(lowercase.test(inpField.val().charAt(i)))
+          lowCount++;
+        else if(numbers.test(inpField.val().charAt(i)))
+          numbCount++;
+        else {
+          specialCount++;
+        }
+      }
+
+      //Checking password strength
+      passwdStrength += inpField.val().length - 7;  //Amount of extra length
+      passwdStrength += specialCount + numbCount + upCount;
+
+      if(passwdStrength > 1 && passwdStrength < 7){
+        strText = "Average";
+        $('input[type="submit"]').removeAttr('disabled');
+        $(this).css({"border-color": "orange",
+                    "border-style": "solid"});
+      } else if(passwdStrength > 6) {
+        strText = "Strong";
+        $('input[type="submit"]').removeAttr('disabled');
+        $(this).css({"border-color": "green",
+                    "border-style": "solid"});
+      } else {
+        strText = "Weak";
+        $('input[type="submit"]').removeAttr('disabled');
+        $(this).css({"border-color": "red",
+                    "border-style": "solid"});
+      }
+
+      //Append label with strength
+      if($(this).data('labeltxt'))
+        $(this).data('labeltxt').remove();
+
+      var label = $("<label>");
+      label.html("Strength: " + strText);
+      $(this).after(label);
+      $(this).data('labeltxt', label);
+
+    });
+  };
+
 })(jQuery);

@@ -40,6 +40,7 @@ $('.postalCode').validatePostalCode('.city');
 ```
 
 ####Password validaton
+* Regular validation
 
 ```
 $('.FIELD_TO_VALIDATE').validatePassword();
@@ -49,4 +50,16 @@ For example:
 
 ```
 $('.password').validatePassword();
+```
+
+* Validation based on strength
+
+```
+$('.FIELD_TO_VALIDATE').validatePasswordStrengthOnly();
+```
+
+For example:
+
+```
+$('.password').validatePasswordStrengthOnly();
 ```
