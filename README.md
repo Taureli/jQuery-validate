@@ -2,7 +2,7 @@
 Author: Jakub Karolczak
 
 ##How to use
-#####Text validation
+####Text validation
 
 ```
 $('.FIELD_TO_VALIDATE').validateText(PATTERN);
@@ -14,7 +14,7 @@ For example:
 $('.login').validateText(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/);
 ```
 
-#####Email validaton
+####Email validaton
 
 ```
 $('.FIELD_TO_VALIDATE').validateEmail();
@@ -26,7 +26,7 @@ For example:
 $('.email').validateEmail();
 ```
 
-#####Postal code validation
+####Postal code validation
 ######Disclaimer: works only on Polish postal codes!
 
 ```
@@ -37,4 +37,16 @@ For example:
 
 ```
 $('.postalCode').validatePostalCode('.city');
+```
+
+####Password validaton
+
+```
+$('.FIELD_TO_VALIDATE').validatePassword();
+```
+
+For example:
+
+```
+$('.password').validatePassword();
 ```

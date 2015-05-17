@@ -42,7 +42,7 @@
           //Look through all data
           for(var myData in data.DANE){
             if (inpField.val().match(data.DANE[myData].KOD)){
-              $(cityField).val(data.DANE[myData].MIEJSCOWOŚĆ)
+              $(cityField).val(data.DANE[myData].MIEJSCOWOŚĆ);
               $('input[type="submit"]').removeAttr('disabled');
               inpField.css({"border-color": ""});
             }
