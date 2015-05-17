@@ -55,15 +55,60 @@
 
   $.fn.validatePassword = function() {
     $(this).on('keydown keyup keypress', function(e){
-      var mailPattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      if(!$(this).val().match(mailPattern)){
+      var inpField = $(this); //Needed for future reference
+      var uppercase = new RegExp('[A-ZĄĆĘŁŃÓŚŹŻ]');
+      var lowercase = new RegExp('[a-ząćęłóńśźż]');
+      var numbers = new RegExp('[0-9]');
+      var strText = "Weak";
+
+      //Password has to be at least 8 and contain uppercase, lowercase and numbers
+      if(!$(this).val().match(uppercase) || !$(this).val().match(lowercase) || !$(this).val().match(numbers) || !$(this).val().length > 7){
         $('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       } else {
+        var passwdStrength = 0;
+        var upCount = 0;
+        var lowCount = 0;
+        var numbCount = 0;
+        var specialCount = 0;
+
+        //count each type of symbol
+        for(var i = 0; i < inpField.val().length; i++){
+          if(uppercase.test(inpField.val().charAt(i)))
+            upCount++;
+          else if(lowercase.test(inpField.val().charAt(i)))
+            lowCount++;
+          else if(numbers.test(inpField.val().charAt(i)))
+            numbCount++;
+          else {
+            specialCount++;
+          }
+        }
+
+        //Checking password strength
+        passwdStrength += inpField.val().length - 8;  //Amount of extra length
+        passwdStrength += specialCount + numbCount;
+
+        if(passwdStrength > 1 && passwdStrength < 4)
+          strText = "Average";
+        else if(passwdStrength > 3)
+          strText = "Strong";
+
         $('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": ""});
       }
+
+      //Append label with strength
+      if($(this).data('labeltxt'))
+        $(this).data('labeltxt').remove();
+
+      var label = $("<label>");
+      label.html("Strength: " + strText);
+
+      $(this).after(label);
+      $(this).data('labeltxt', label);
+
     });
   };
 
