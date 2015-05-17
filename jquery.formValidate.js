@@ -60,12 +60,14 @@
       var lowercase = new RegExp('[a-ząćęłóńśźż]');
       var numbers = new RegExp('[0-9]');
       var strText = "Weak";
+      var error = 0;  //Bool to check if input is correct
 
       //Password has to be at least 8 and contain uppercase, lowercase and numbers
-      if(!$(this).val().match(uppercase) || !$(this).val().match(lowercase) || !$(this).val().match(numbers) || !$(this).val().length > 7){
+      if(!$(this).val().match(uppercase) || !$(this).val().match(lowercase) || !$(this).val().match(numbers) || $(this).val().length < 8){
         $('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
+        error = 1;
       } else {
         var passwdStrength = 0;
         var upCount = 0;
@@ -90,13 +92,14 @@
         passwdStrength += inpField.val().length - 8;  //Amount of extra length
         passwdStrength += specialCount + numbCount;
 
-        if(passwdStrength > 1 && passwdStrength < 4)
+        if(passwdStrength > 1 && passwdStrength < 6)
           strText = "Average";
-        else if(passwdStrength > 3)
+        else if(passwdStrength > 5)
           strText = "Strong";
 
         $('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": ""});
+        error = 0;
       }
 
       //Append label with strength
@@ -104,8 +107,10 @@
         $(this).data('labeltxt').remove();
 
       var label = $("<label>");
-      label.html("Strength: " + strText);
-
+      if(!error)
+        label.html("Strength: " + strText);
+      else
+        label.html("Has to be at least 8 characters long and contain at least one of: uppercase, lowercase and number");
       $(this).after(label);
       $(this).data('labeltxt', label);
 
