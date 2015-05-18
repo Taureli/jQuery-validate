@@ -160,7 +160,7 @@
                     "border-style": "solid"});
       } else {
         strText = "Weak";
-        $('input[type="submit"]').removeAttr('disabled');
+        $('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       }
