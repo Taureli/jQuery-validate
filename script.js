@@ -4,4 +4,6 @@ $(document).ready(function(){
   $('.postalCode').validatePostalCode('.city');
   //$('.password').validatePassword();
   $('.password').validatePasswordStrengthOnly();
+
+  $('.text').validateText(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/);
 });

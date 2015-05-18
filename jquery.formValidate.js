@@ -3,11 +3,12 @@
   $.fn.validateText = function(pattern) {
     $(this).on('keydown keyup keypress', function(e){
       if(!$(this).val().match(pattern)){
-        $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).siblings('input[type="submit"]').attr('disabled', 'disabled');
+        //$('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       } else {
-        $('input[type="submit"]').removeAttr('disabled');
+        $(this).siblings('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": ""});
       }
     });
@@ -17,11 +18,11 @@
     $(this).on('keydown keyup keypress', function(e){
       var mailPattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(!$(this).val().match(mailPattern)){
-        $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).siblings('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       } else {
-        $('input[type="submit"]').removeAttr('disabled');
+        $(this).siblings('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": ""});
       }
     });
@@ -33,7 +34,7 @@
       var inpField = $(this); //Needed for future reference
 
       if(!$(this).val().match(postalCodePattern)){
-        $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).siblings('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       } else {
@@ -43,7 +44,7 @@
           for(var myData in data.DANE){
             if (inpField.val().match(data.DANE[myData].KOD)){
               $(cityField).val(data.DANE[myData].MIEJSCOWOŚĆ);
-              $('input[type="submit"]').removeAttr('disabled');
+              inpField.siblings('input[type="submit"]').removeAttr('disabled');
               inpField.css({"border-color": ""});
             }
           }
@@ -64,7 +65,7 @@
 
       //Password has to be at least 8 and contain uppercase, lowercase and numbers
       if(!$(this).val().match(uppercase) || !$(this).val().match(lowercase) || !$(this).val().match(numbers) || $(this).val().length < 8){
-        $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).siblings('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
         error = 1;
@@ -97,7 +98,7 @@
         else if(passwdStrength > 5)
           strText = "Strong";
 
-        $('input[type="submit"]').removeAttr('disabled');
+          $(this).siblings('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": ""});
         error = 0;
       }
@@ -150,17 +151,17 @@
 
       if(passwdStrength > 1 && passwdStrength < 7){
         strText = "Average";
-        $('input[type="submit"]').removeAttr('disabled');
+        $(this).siblings('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": "orange",
                     "border-style": "solid"});
       } else if(passwdStrength > 6) {
         strText = "Strong";
-        $('input[type="submit"]').removeAttr('disabled');
+        $(this).siblings('input[type="submit"]').removeAttr('disabled');
         $(this).css({"border-color": "green",
                     "border-style": "solid"});
       } else {
         strText = "Weak";
-        $('input[type="submit"]').attr('disabled', 'disabled');
+        $(this).siblings('input[type="submit"]').attr('disabled', 'disabled');
         $(this).css({"border-color": "red",
                     "border-style": "solid"});
       }
